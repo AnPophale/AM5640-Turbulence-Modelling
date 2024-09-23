@@ -1,5 +1,5 @@
 # AM5640-Turbulence-Modelling
-FVM implementation of Eddy Viscosity models for fully developed turbulent channel flow in MATLAB
+### FVM implementation of Eddy Viscosity models for fully developed turbulent channel flow in MATLAB
 
 In this project, we use the Finite Volume Method (FVM) to numerically solve the governing equations for a fully developed turbulent channel flow using MATLAB. The turbulence closure is modelled using Eddy Viscosity Models including the $\kappa-\epsilon$, $\kappa-\omega$ models as well as the Reynolds Stress Model. The results are compared with Direct Numerical Simulaton (DNS) data from Kim, Moser and Mansour (1999) as well as 2D ANSYS Fluent simulations using periodic boundary conditions. MATLAB codes developed for the project can be found in the MATLAB Codes folder and the results are summarized in the report. Following is a brief explanation of the governinng equations, details of the turbulence models used, as well as the FVM discretized equations.
 
@@ -8,7 +8,7 @@ For a fully developed turbulent channel flow where, x is the stream wise directi
 * Statistically stationary: $\frac{\partial \bar{\phi}}{\partial t} = 0$ for any mean quantity $\bar{\phi}$
 * Statistically homogeneous in the span-wise direction: $\frac{\partial \bar{\phi}}{\partial z} = 0$ for any mean quantity $\bar{\phi}$
 
-Applying these conditions, the 3D Reynolds Averaged Navier Stokes (RANS) equations with the Boussinesq approximation along with the continuity equation reduce to:  
+Applying these conditions, the 3D Reynolds Averaged Navier Stokes (RANS) equations with the Boussinesq approximation along with the continuity equation reduce to (All variables are ensemble averaged unless otherwise specified):  
 ```math
 \frac{\partial U}{\partial x} + \frac{\partial V}{\partial y} = 0 \\
 ```
@@ -26,7 +26,7 @@ U \frac{\partial V}{\partial x} + V \frac{\partial V}{\partial y} = -\frac{1}{\r
 ```
  
 Further, for a fully developed flow, $\frac{\partial \bar{U}}{\partial x} = 0$  and $V = W = 0$
-Hence, the equations reduce to a single equation of the form  
+Hence, the equations reduce to a single 1D equation of the form  
 ```math
 0 = -\frac{1}{\rho} \frac{\partial P}{\partial x} + \frac{\partial}{\partial y} \left( (\nu + \nu_t) \frac{\partial U}{\partial y} \right)
 ```
