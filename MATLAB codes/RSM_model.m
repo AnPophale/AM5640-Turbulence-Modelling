@@ -75,7 +75,7 @@ eps_kw = readmatrix("eps_kw.txt");
 
 %Inital guess interpolated from k w model results
 %To run this code, the results of the k omega model must be stored in the same folder
-%u2, v2 and w2 taken as k/3
+%u2, v2 and w2 taken as k/3 from k omega model
 u = interp1(y_dns, u_kw, ynode, 'linear'); u(1) = 0; 
 u2 = interp1(y_dns, u2_kw, ynode, 'linear'); u2(1) = 0; 
 v2 = interp1(y_dns, v2_kw, ynode, 'linear'); v2(1) = 0;
