@@ -39,14 +39,14 @@ Consider the RANS equations in the tensor form using index notation given below
 
 The term $\overline{(u_i' u_j')}$  which is also called as Reynolds Stresses need to be modelled as they are unknown and this is known as the turbulence closure model. Based on the modelling approach used, we have different types of turbulence closure models.
 
-**Eddy Viscosity models:** 
+**Eddy Viscosity Models:**   
 One of the approaches for this uses the Boussinesq approximation which is given below and this leads to a class of turbulence models known as eddy visocity models
 ```math
 \overline{u_i' u_j'} = -\nu_t \left( \frac{\partial \bar{u}_i}{\partial x_j} + \frac{\partial \bar{u}_j}{\partial x_i} \right) + \frac{2}{3} k \delta_{ij} \quad \quad (6)
 ```
 Hence, the 6 unknown Reynolds Stresses are reduced to 2 unknowns, the turbulence kinetinc energy k and the turbulent or eddy viscosity $\nu_t$. Substituting the Boussinesq approximation into the RANS equations leads to a general form for Eddy Viscosity based models which is similar to equations (2) and (3). The two unknows still need to be modelled appropriatley which gives various eddy viscosity models such as the Prandtl's one equation model or 2 equation models such as the $\kappa-\epsilon$, $\kappa-\omega$ models and in this project, we focus on the later. The drawback of such models is that the inherent anisotropic nature of turbulece is not completely captured and replacing 6 unknowns with 2 promotes isotropy in the model. 
 
-In the $\kappa-\epsilon$ model, a model transport equation in solved for the turbulence kinetic energy $\kappa$ which is derived by using model approximations in the exact transport equation for $\kappa$. Analogus to this, a transport equation is derived for the dissipation rate of turbulence kinetic energy known as $\epsilon$. The turbulence viscosity is calculated based on the values of $\kappa$ and $\epsilon$. The equations for the $\kappa-\epsilon$ model, simplified for the case of fully developed turbulent channel flow are given as follows:
+In the $\kappa-\epsilon$ model, a model transport equation in solved for the turbulence kinetic energy $\kappa$ which is derived by using model approximations in the exact transport equation for $\kappa$. Analogus to this, a transport equation is derived for the dissipation rate of turbulence kinetic energy known as $\epsilon$. The turbulence viscosity is calculated based on the values of $\kappa$ and $\epsilon$. The equations for the $\kappa-\epsilon$ model, simplified for the case of fully developed turbulent channel flow are given as follows while details of other eddy viscosity models and their model assumptions can be found in [2].
 ```math
 \frac{\partial}{\partial y}\left[(\nu + \nu_t)\frac{\partial u}{\partial y}\right] - \frac{1}{\rho}\frac{\partial P}{\partial y} = 0 \quad \quad (7)
 ```
@@ -67,18 +67,18 @@ P_k = \nu_t\left(\frac{\partial u}{\partial y}\right)^2 \quad \quad (10)
 \nu_t = C_\mu\frac{k^2}{\epsilon} \quad \quad (11)
 ```
 
-
-
-**Reynolds Stress Model:**  
-Another approach to model the Reynolds stresses is formulating a seperate transport equation for each of the Reynolds stresses which solves the problem of isotropy in eddy viscosity models. This class of models are known as Reynolds Stress Models.
+**Reynolds Stress Models:**    
+Another approach to model the Reynolds stresses is formulating a seperate transport equation for each of the Reynolds stresses which solves the problem of isotropy in eddy viscosity models. This class of models are known as Reynolds Stress Models. The transport equation for the Reynolds Stresses is given as
 
  
+The terms such as need further modelling, but as the equations are complicated we do not present them here, they can be found in [2]
+Further, in this project, we use wall functions to model the near wall behaviuor in the Reynolds Stress models
 
 
 
 
-
-**FVM Discretization:**
+**FVM Discretization:**  
+Here, we only describe the FVM discretization for the k epsilon model. Details of the FVM and applications in turbulence modelling can be found in [2]. In FVM, the governing equations are integrated over a fininte control volume and the domain is discretized into several such control volumes
 
 
 **References:**  
