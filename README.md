@@ -1,5 +1,5 @@
 # AM5640-Turbulence-Modelling
-### FVM implementation of Eddy Viscosity models for fully developed turbulent channel flow in MATLAB
+### FVM implementation of Eddy Viscosity and Reynolds Stress models for fully developed turbulent channel flow in MATLAB
 
 In this project, we use the Finite Volume Method (FVM) to numerically solve the governing equations for a fully developed turbulent channel flow using MATLAB. The turbulence closure is modelled using Eddy Viscosity Models including the $\kappa-\epsilon$, $\kappa-\omega$ models as well as the Reynolds Stress Model. The results are compared with Direct Numerical Simulaton (DNS) data from Kim, Moser and Mansour (1999) as well as 2D ANSYS Fluent simulations using periodic boundary conditions. MATLAB codes developed for the project can be found in the MATLAB Codes folder and the results are summarized in the report. Following is a brief explanation of the governinng equations, details of the turbulence models used, as well as the FVM discretized equations.
 
@@ -10,7 +10,7 @@ For a fully developed turbulent channel flow where, x is the stream wise directi
 
 Applying these conditions, the 3D Reynolds Averaged Navier Stokes (RANS) equations with the Boussinesq approximation along with the continuity equation reduce to (All variables are ensemble averaged unless otherwise specified):  
 ```math
-\frac{\partial U}{\partial x} + \frac{\partial V}{\partial y} = 0 \\
+\frac{\partial U}{\partial x} + \frac{\partial V}{\partial y} = 0 \tag{1} \\
 ```
 
 ```math
