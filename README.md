@@ -31,16 +31,21 @@ Hence, the equations reduce to a single 1D equation of the form
 0 = -\frac{1}{\rho} \frac{\partial P}{\partial x} + \frac{\partial}{\partial y} \left( (\nu + \nu_t) \frac{\partial U}{\partial y} \right)
 ```
 
-**Turbulence modelling:**
+**Turbulence modelling:**  
 Consider the RANS equations in the tensor form using index notation given below
+```math
+\frac{\partial \bar{u}_i}{\partial t} + \bar{u}_j \frac{\partial \bar{u}_i}{\partial x_j}  = -\frac{1}{\rho} \frac{\partial \bar{p}}{\partial x_i} + \nu \frac{\partial^2 \bar{u}_i}{\partial x_j \partial x_j} + \frac{\partial \overline{(u_i' u_j')}}{\partial x_j}
+```
 
-The term which is also called as Reynolds Stresses need to be modelled as they are unknown and this is known as the turbulence closure model. Based on the modelling approach used, we have different types of turbulence closure models.
+The term $\overline{(u_i' u_j')}$  which is also called as Reynolds Stresses need to be modelled as they are unknown and this is known as the turbulence closure model. Based on the modelling approach used, we have different types of turbulence closure models. One of the approaches for this uses the Boussinesq approximation which is given below and this leads to a class of turbulence models known as eddy visocity models
+```math
+\overline{u_i' u_j'} = -\nu_t \left( \frac{\partial \bar{u}_i}{\partial x_j} + \frac{\partial \bar{u}_j}{\partial x_i} \right) + \frac{2}{3} k \delta_{ij}
+```
+
+Hence, the 6 unknown Reynolds Stresses are reduced to 2 unknowns, k and $\nu_t$. This leads to a general form of RANS equations for Eddy Viscosity based models which is the same as 
 
 **Eddy Viscosity models:**  
-In this class of models, the Reynolds Stresses are modelled using the Boussinesq approximation which is given as 
-Hence, the 6 unknown Reynolds Stresses are reduced to 2 unknowns, k and vt
 
-This leads to a general form of RANS equations for Eddy Viscosity based models 
 
 Based on the approaches used to model the unknown turbulent viscosity, there are various types of Eddy viscosity models
 We focus on two equations models such as the $\kappa-\epsilon$ and $\kappa-\omega$
