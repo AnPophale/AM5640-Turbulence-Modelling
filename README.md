@@ -74,12 +74,12 @@ Another approach to model the Reynolds stresses is formulating a seperate transp
 \frac{\partial}{\partial x_k} \left( \rho U_k u_i u_j \right) = \mu \frac{\partial^2 u_i u_j}{\partial x_k \partial x_k} + P_{ij} + \Phi_{ij} + D_{ij} - \rho \epsilon_{ij}
 ```
 The terms on the RHS are the viscous diffusion, production, pressure dedistribution and dissipation rate of the reynolds stresses which need further modelling. The equations for these models are complicated and hence, we do not present them here, further details can be found in [2] For example, the pressure redristributon term is split into two components, a slow term and a fast term which are modelled using the Rotta and the IP model respectively.
-The terms such as need further modelling, but as the equations are complicated we do not present them here, they can be found in [2]. Along with the transport equation for the reynolds stresses, a transport equation for the disspiation of the turbulent kinetic energy is also needed to use this model.
+The terms such as need further modelling, but as the equations are complicated we do not present them here, they can be found in [2]. Along with the transport equation for the reynolds stresses, a transport equation for the disspiation of the turbulent kinetic energy is also needed to use this model. In this project, we have used wall functions for the near wall treatmnet in the reynolds stress model which is explained in the attached codes.
 
 **FVM Discretization:**  
 Here, we only describe the FVM discretization for the k epsilon model. Details of the Finite Volume Method and applications in turbulence modelling can be found in [2]. In FVM, the governing equations are integrated over a finite control volume and the domain is discretized into several such control volumes which converts the governing differential equations to a system of linear equations. This system is further solved using the Gauss Seidel method with unbder relaxation. Here, we use a central difference scheme for all diffusive terms and the non linear source terms are linearzied. Here, the superscript old refers to the values from the previous iteration which are used to decouple the equations at each iteration as well as to linearizr the source terms. All the other terms are expressed in standard FVM notation such as subscripts P, N, S refering to the parent, north and south nodes and $S_u$, $S_p$ denoting the source terms, etc. which has been followed in [2]
 
-Discretized u momentum equation:
+* Discretized u momentum equation:
 ```math
 a_{P_u} u_P = a_{N_u} u_N + a_{S_u} u_S + Su_u
 ```
@@ -91,7 +91,7 @@ a_{P_u} = a_{N_u} + a_{S_u}, \quad
 Su_u = \frac{\Delta y}{\rho}
 ```
 
-Discretized k model equation:
+* Discretized $\kappa$ model equation:
 ```math
 (a_{P_k} + Sp_k) k_P = a_{N_k} k_N + a_{S_k} k_S + Su_k
 ```
@@ -107,7 +107,7 @@ Sp_k = \frac{\epsilon_P^{\text{old}}}{k_P^{\text{old}}}
 Su_k = P_{k_P} \Delta y = \left[ \nu_t^{\text{old}} \left( \frac{\partial u^{\text{old}}}{\partial y} \right)^2 \right]_P \Delta y = \nu_{t_P}^{\text{old}} \left( \frac{u_N^{\text{old}} - u_S^{\text{old}}}{\Delta y_n + \Delta y_s} \right) \Delta y
 ```
 
-Discretized $\epsilon$ model equation:
+* Discretized $\epsilon$ model equation:
 ```math
 (a_{P_\epsilon} + Sp_\epsilon) \epsilon_P = a_{N_\epsilon} \epsilon_N + a_{S_\epsilon} \epsilon_S + Su_\epsilon
 ```
@@ -124,7 +124,40 @@ Su_\epsilon = P_{\epsilon_P} \Delta y = \left[ \nu_t^{\text{old}} \left( \frac{\
 ```
 
 **Results**:  
-All the results from the simulation can be found in the project report, here we present the comparion of velocity profiles and the budget of turbulence kinetic energy for different models compared with the DNS data. Figures 1 and 2 show the comparison of the velocity profiles using the $\kappa-\omega$ and Reynolds Stress models while Figures 3,4 and 5 show the turbulence kinetic energy budget for both the models as well as the DNS data.
+All the results as well as inferences from the simulation can be found in the project report, here we present the comparion of velocity profiles and the turbulence kinetic energy for different models compared with the DNS data. \\
+Figures 1 and 2 show the comparison of the velocity profiles using the $\kappa-\omega$ and Reynolds Stress models.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9c7977fc-bb26-4c6f-8c80-047cd652a7b5" alt="Comparison of velocity profile using κ-ω model and DNS data" style="width: 50%;">
+</p>
+<p align="center">
+  <em>Figure 1: Comparison of velocity profile using κ-ω model and DNS data</em>
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8f32242e-ed64-48c1-99ae-15645ea407fc" alt="Comparison of velocity profile using Reynolds Stress model with wall function and DNS data" style="width: 50%;">
+</p>
+<p align="center">
+  <em>Figure 2: Comparison of velocity profile using Reynolds Stress model with wall function and DNS data</em>
+</p>
+
+Figures 3 and 4 show the comparison of turbulence kinetic energy for both the models with the DNS data.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8aaecaa3-a44e-425e-b097-cad17d223a6e" alt="Comparison of turbulence kinetic energy using κ-ω model and DNS data" style="width: 50%;">
+</p>
+<p align="center">
+  <em>Figure 3: Comparison of turbulence kinetic energy using κ-ω model and DNS data</em>
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/959fec8f-649d-48de-ac8b-84a3b29b223c" alt="Comparison of turbulence kinetic energy using Reynolds Stress model with wall function and DNS data" style="width: 50%;">
+</p>
+<p align="center">
+  <em>Figure 4: Comparison of turbulence kinetic energy using Reynolds Stress model with wall function and DNS data</em>
+</p>
+
+
 
 **References:**  
 [1] R. D. Moser, J. Kim, and N. N. Mansour. Direct numerical simulation of turbulent channel flow up to Reτ =590. Physics of Fluids, 11(4):943–945, 1999.  
