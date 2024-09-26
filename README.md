@@ -77,29 +77,29 @@ The terms on the RHS are the viscous diffusion, production, pressure dedistribut
 The terms such as need further modelling, but as the equations are complicated we do not present them here, they can be found in [2]. Along with the transport equation for the reynolds stresses, a transport equation for the disspiation of the turbulent kinetic energy is also needed to use this model.
 
 **FVM Discretization:**  
-Here, we only describe the FVM discretization for the k epsilon model. Details of the Finite Volume Method and applications in turbulence modelling can be found in [2]. In FVM, the governing equations are integrated over a finite control volume and the domain is discretized into several such control volumes which converts the governing differential equations to a system of linear equations which is solved using the Gauss Seidel method with unbder relaxation. Here, we use a central difference scheme for all diffusive terms as well as linearization of non linear source terms
+Here, we only describe the FVM discretization for the k epsilon model. Details of the Finite Volume Method and applications in turbulence modelling can be found in [2]. In FVM, the governing equations are integrated over a finite control volume and the domain is discretized into several such control volumes which converts the governing differential equations to a system of linear equations which is solved using the Gauss Seidel method with unbder relaxation. Here, we use a central difference scheme for all diffusive terms as well as linearization of non linear source terms. Here, the superscript old refers to the values from the previous iteration which are used to decouple the equations at each iteration.
 
-u-Momentum Equation:
+Discretized u momentum equation:
 ```math
-a_P_u u_P = a_N_u u_N + a_S_u u_S + Su_u
+a_{P_u} u_P = a_{N_u} u_N + a_{S_u} u_S + Su_u
 ```
 
 ```math
-a_N_u = \frac{(\nu + \nu_t^{\text{old}})_n}{\Delta y_n}, \quad 
-a_S_u = \frac{(\nu + \nu_t^{\text{old}})_s}{\Delta y_s}, \quad 
-a_P_u = a_N_u + a_S_u, \quad 
+a_{N_u} = \frac{(\nu + \nu_t^{\text{old}})_n}{\Delta y_n}, \quad 
+a_{S_u} = \frac{(\nu + \nu_t^{\text{old}})_s}{\Delta y_s}, \quad 
+a_{P_u} = a_{N_u} + a_{S_u}, \quad 
 Su_u = \frac{\Delta y}{\rho}
 ```
 
-k Model Equation:
+Discretized k model equation:
 ```math
-(a_P_k + Sp_k) k_P = a_N_k k_N + a_S_k k_S + Su_k
+(a_{P_k} + Sp_k) k_P = a_{N_k} k_N + a_{S_k} k_S + Su_k
 ```
 
 ```math
-a_N_k = \frac{(\nu + \nu_t^{\text{old}} / \sigma_k)_n}{\Delta y_n}, \quad 
-a_S_k = \frac{(\nu + \nu_t^{\text{old}} / \sigma_k)_s}{\Delta y_s}, \quad 
-a_P_k = a_N_k + a_S_k, \quad 
+a_{N_k} = \frac{(\nu + \nu_t^{\text{old}} / \sigma_k)_n}{\Delta y_n}, \quad 
+a_{S_k} = \frac{(\nu + \nu_t^{\text{old}} / \sigma_k)_s}{\Delta y_s}, \quad 
+a_{P_k} = a_{N_k} + a_{S_k}, \quad 
 Sp_k = \frac{\epsilon_P^{\text{old}}}{k_P^{\text{old}}}
 ```
 
@@ -107,15 +107,15 @@ Sp_k = \frac{\epsilon_P^{\text{old}}}{k_P^{\text{old}}}
 Su_k = P_{k_P} \Delta y = \left[ \nu_t^{\text{old}} \left( \frac{\partial u^{\text{old}}}{\partial y} \right)^2 \right]_P \Delta y = \nu_{t_P}^{\text{old}} \left( \frac{u_N^{\text{old}} - u_S^{\text{old}}}{\Delta y_n + \Delta y_s} \right) \Delta y
 ```
 
-$\epsilon$ Model Equation:
+Discretized $\epsilon$ model equation:
 ```math
-(a_P_\epsilon + Sp_\epsilon) \epsilon_P = a_N_\epsilon \epsilon_N + a_S_\epsilon \epsilon_S + Su_\epsilon
+(a_{P_\epsilon} + Sp_\epsilon) \epsilon_P = a_{N_\epsilon} \epsilon_N + a_{S_\epsilon} \epsilon_S + Su_\epsilon
 ```
 
 ```math
-a_N_\epsilon = \frac{(\nu + \nu_t^{\text{old}} / \sigma_\epsilon)_n}{\Delta y_n}, \quad 
-a_S_\epsilon = \frac{(\nu + \nu_t^{\text{old}} / \sigma_\epsilon)_s}{\Delta y_s}, \quad 
-a_P_\epsilon = a_N_\epsilon + a_S_\epsilon, \quad 
+a_{N_\epsilon} = \frac{(\nu + \nu_t^{\text{old}} / \sigma_\epsilon)_n}{\Delta y_n}, \quad 
+a_{S_\epsilon} = \frac{(\nu + \nu_t^{\text{old}} / \sigma_\epsilon)_s}{\Delta y_s}, \quad 
+a_{P_\epsilon} = a_{N_\epsilon} + a_{S_\epsilon}, \quad 
 Sp_\epsilon = \frac{\epsilon_P^{\text{old}}}{k_P^{\text{old}}}
 ```
 
