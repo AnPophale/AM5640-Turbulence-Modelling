@@ -77,7 +77,7 @@ The terms on the RHS are the viscous diffusion, production, pressure dedistribut
 The terms such as need further modelling, but as the equations are complicated we do not present them here, they can be found in [2]. Along with the transport equation for the reynolds stresses, a transport equation for the disspiation of the turbulent kinetic energy is also needed to use this model.
 
 **FVM Discretization:**  
-Here, we only describe the FVM discretization for the k epsilon model. Details of the Finite Volume Method and applications in turbulence modelling can be found in [2]. In FVM, the governing equations are integrated over a finite control volume and the domain is discretized into several such control volumes which converts the governing differential equations to a system of linear equations which is solved using the Gauss Seidel method with unbder relaxation. Here, we use a central difference scheme for all diffusive terms as well as linearization of non linear source terms. Here, the superscript old refers to the values from the previous iteration which are used to decouple the equations at each iteration. All the other terms are written in standard FVM notation which has been followed in [2]
+Here, we only describe the FVM discretization for the k epsilon model. Details of the Finite Volume Method and applications in turbulence modelling can be found in [2]. In FVM, the governing equations are integrated over a finite control volume and the domain is discretized into several such control volumes which converts the governing differential equations to a system of linear equations. This system is further solved using the Gauss Seidel method with unbder relaxation. Here, we use a central difference scheme for all diffusive terms and the non linear source terms are linearzied. Here, the superscript old refers to the values from the previous iteration which are used to decouple the equations at each iteration as well as to linearizr the source terms. All the other terms are expressed in standard FVM notation such as subscripts P, N, S refering to the parent, north and south nodes and $S_u$, $S_p$ denoting the source terms, etc. which has been followed in [2]
 
 Discretized u momentum equation:
 ```math
@@ -124,7 +124,7 @@ Su_\epsilon = P_{\epsilon_P} \Delta y = \left[ \nu_t^{\text{old}} \left( \frac{\
 ```
 
 **Results**:  
-All the results from the simulation can be found in the project report, here we present the comparion of velocity profiles and the budget of turbulence kinetic energy for different models compared with the DNS data
+All the results from the simulation can be found in the project report, here we present the comparion of velocity profiles and the budget of turbulence kinetic energy for different models compared with the DNS data. Figures 1 and 2 show the comparison of the velocity profiles using the $\kappa-\omega$ and Reynolds Stress models while Figures 3,4 and 5 show the turbulence kinetic energy budget for both the models as well as the DNS data.
 
 **References:**  
 [1] R. D. Moser, J. Kim, and N. N. Mansour. Direct numerical simulation of turbulent channel flow up to Reτ =590. Physics of Fluids, 11(4):943–945, 1999.  
