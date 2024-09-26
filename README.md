@@ -70,16 +70,61 @@ P_k = \nu_t\left(\frac{\partial u}{\partial y}\right)^2 \quad \quad (10)
 **Reynolds Stress Models:**    
 Another approach to model the Reynolds stresses is formulating a seperate transport equation for each of the Reynolds stresses which solves the problem of isotropy in eddy viscosity models. This class of models are known as Reynolds Stress Models. The transport equation for the Reynolds Stresses is given as
 
- 
-The terms such as need further modelling, but as the equations are complicated we do not present them here, they can be found in [2]
-Further, in this project, we use wall functions to model the near wall behaviuor in the Reynolds Stress models
-
-
-
+```math
+\frac{\partial}{\partial x_k} \left( \rho U_k u_i u_j \right) = \mu \frac{\partial^2 u_i u_j}{\partial x_k \partial x_k} + P_{ij} + \Phi_{ij} + D_{ij} - \rho \epsilon_{ij}
+```
+The terms on the RHS are the viscous diffusion, production, pressure dedistribution and dissipation rate of the reynolds stresses which need further modelling. The equations for these models are complicated and hence, we do not present them here, further details can be found in [2] For example, the pressure redristributon term is split into two components, a slow term and a fast term which are modelled using the Rotta and the IP model respectively.
+The terms such as need further modelling, but as the equations are complicated we do not present them here, they can be found in [2]. Along with the transport equation for the reynolds stresses, a transport equation for the disspiation of the turbulent kinetic energy is also needed to use this model.
 
 **FVM Discretization:**  
-Here, we only describe the FVM discretization for the k epsilon model. Details of the FVM and applications in turbulence modelling can be found in [2]. In FVM, the governing equations are integrated over a fininte control volume and the domain is discretized into several such control volumes
+Here, we only describe the FVM discretization for the k epsilon model. Details of the Finite Volume Method and applications in turbulence modelling can be found in [2]. In FVM, the governing equations are integrated over a finite control volume and the domain is discretized into several such control volumes which converts the governing differential equations to a system of linear equations which is solved using the Gauss Seidel method with unbder relaxation. Here, we use a central difference scheme for all diffusive terms as well as linearization of non linear source terms
 
+u-Momentum Equation:
+```math
+a_P_u u_P = a_N_u u_N + a_S_u u_S + Su_u
+```
+
+```math
+a_N_u = \frac{(\nu + \nu_t^{\text{old}})_n}{\Delta y_n}, \quad 
+a_S_u = \frac{(\nu + \nu_t^{\text{old}})_s}{\Delta y_s}, \quad 
+a_P_u = a_N_u + a_S_u, \quad 
+Su_u = \frac{\Delta y}{\rho}
+```
+
+k Model Equation:
+```math
+(a_P_k + Sp_k) k_P = a_N_k k_N + a_S_k k_S + Su_k
+```
+
+```math
+a_N_k = \frac{(\nu + \nu_t^{\text{old}} / \sigma_k)_n}{\Delta y_n}, \quad 
+a_S_k = \frac{(\nu + \nu_t^{\text{old}} / \sigma_k)_s}{\Delta y_s}, \quad 
+a_P_k = a_N_k + a_S_k, \quad 
+Sp_k = \frac{\epsilon_P^{\text{old}}}{k_P^{\text{old}}}
+```
+
+```math
+Su_k = P_{k_P} \Delta y = \left[ \nu_t^{\text{old}} \left( \frac{\partial u^{\text{old}}}{\partial y} \right)^2 \right]_P \Delta y = \nu_{t_P}^{\text{old}} \left( \frac{u_N^{\text{old}} - u_S^{\text{old}}}{\Delta y_n + \Delta y_s} \right) \Delta y
+```
+
+$\epsilon$ Model Equation:
+```math
+(a_P_\epsilon + Sp_\epsilon) \epsilon_P = a_N_\epsilon \epsilon_N + a_S_\epsilon \epsilon_S + Su_\epsilon
+```
+
+```math
+a_N_\epsilon = \frac{(\nu + \nu_t^{\text{old}} / \sigma_\epsilon)_n}{\Delta y_n}, \quad 
+a_S_\epsilon = \frac{(\nu + \nu_t^{\text{old}} / \sigma_\epsilon)_s}{\Delta y_s}, \quad 
+a_P_\epsilon = a_N_\epsilon + a_S_\epsilon, \quad 
+Sp_\epsilon = \frac{\epsilon_P^{\text{old}}}{k_P^{\text{old}}}
+```
+
+```math
+Su_\epsilon = P_{\epsilon_P} \Delta y = \left[ \nu_t^{\text{old}} \left( \frac{\partial u^{\text{old}}}{\partial y} \right)^2 \right]_P \Delta y = \nu_{t_P}^{\text{old}} \left( \frac{u_N^{\text{old}} - u_S^{\text{old}}}{\Delta y_n + \Delta y_s} \right) \Delta y
+```
+
+**Results**:  
+All the results from the simulation can be found in the project report, here we present the comparion of velocity profiles and the budget of turbulence kinetic energy for different models compared with the DNS data
 
 **References:**  
 [1] R. D. Moser, J. Kim, and N. N. Mansour. Direct numerical simulation of turbulent channel flow up to Reτ =590. Physics of Fluids, 11(4):943–945, 1999.  
