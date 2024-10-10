@@ -10,14 +10,15 @@ For a fully developed turbulent channel flow where, x is the stream wise directi
 
 Applying these conditions, the Reynolds Averaged Navier Stokes (RANS) equations with the Boussinesq approximation along with the continuity equation reduce to (All variables are ensemble averaged unless otherwise specified):  
 ```math
-\frac{\partial U}{\partial x} + \frac{\partial V}{\partial y} = 0 \quad \quad (1)\\
+\frac{\partial U}{\partial x} + \frac{\partial V}{\partial y} = 0 \quad \quad (1)
 ```
 
 ```math
 U \frac{\partial U}{\partial x} + V \frac{\partial U}{\partial y} = -\frac{1}{\rho} \frac{\partial P}{\partial x} 
 + \frac{\partial}{\partial x} \left( (\nu + \nu_t) \frac{\partial U}{\partial x} \right) 
-+ \frac{\partial}{\partial y} \left( (\nu + \nu_t) \frac{\partial U}{\partial y} \right) \quad \quad (2)\\
-```  
++ \frac{\partial}{\partial y} \left( (\nu + \nu_t) \frac{\partial U}{\partial y} \right) \quad \quad (2)
+```
+
 
 ```math
 U \frac{\partial V}{\partial x} + V \frac{\partial V}{\partial y} = -\frac{1}{\rho} \frac{\partial P}{\partial y} 
@@ -71,7 +72,7 @@ P_k = \nu_t\left(\frac{\partial u}{\partial y}\right)^2 \quad \quad (10)
 Another approach to model the Reynolds stresses is formulating a separate transport equation for each of the Reynolds stresses which solves the problem of isotropy in eddy viscosity models. This class of models are known as Reynolds Stress Models. The transport equation for the Reynolds Stresses is given as
 
 ```math
-\frac{\partial}{\partial x_k} \left( \rho U_k \overline{u_i' u_j'} \right) = \mu \frac{\partial^2 \overline{u_i' u_j'}}{\partial x_k \partial x_k} + P_{ij} + \Phi_{ij} + D_{ij} - \rho \varepsilon_{ij}
+\frac{\partial}{\partial x_k} \left( \rho U_k \overline{u_i' u_j'} \right) = \mu \frac{\partial^2 \overline{u_i' u_j'}}{\partial x_k \partial x_k} + P_{ij} + \Phi_{ij} + D_{ij} - \rho \varepsilon_{ij} \quad \quad (12)
 ```
 The terms on the RHS are the viscous diffusion, production, pressure redistribution and dissipation rate of the Reynolds stresses which need further modelling. The equations for these models are complicated and hence, we do not present them here, further details can be found in [2] For example, the pressure redistribution term is split into two components, a slow term and a fast term which are modelled using the Rotta and the IP model respectively.
 The terms such as need further modelling, but as the equations are complicated, we do not present them here, they can be found in [2]. Along with the transport equation for the Reynolds stresses, a transport equation for the dissipation of the turbulent kinetic energy is also needed to use this model. In this project, we have used wall functions for the near wall treatment in the Reynolds stress model which is explained in the attached codes.
